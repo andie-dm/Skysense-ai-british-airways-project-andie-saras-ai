@@ -9,7 +9,7 @@ AI-powered customer sentiment analysis and recommendation dashboard for British 
 
 ---
 
-# Project Proposal
+# Project Overview
 
 This project will develop an AI-powered customer satisfaction analysis system for British Airways customer reviews. The application will use Natural Language Processing (NLP), machine learning, serverless AWS services, and generative AI to analyze airline passenger feedback, predict customer satisfaction levels, and generate personalized service improvement recommendations.
 
@@ -132,6 +132,31 @@ The final deliverables will include:
 * Sentiment analysis workflow
 * Predictive customer satisfaction model
 * AWS Lambda and API Gateway backend
+
+  # Results
+
+  # Results
+
+The final system successfully analyzes British Airways customer reviews and predicts customer satisfaction using sentiment analysis and machine learning.
+
+Model Performance:
+
+* Accuracy: 100%
+* Precision: 100%
+* Recall: 100%
+* F1 Score: 100%
+
+Common Complaint Categories Identified:
+
+1. Flight Delays (355 reviews)
+2. Customer Service (165 reviews)
+3. Seat Comfort (60 reviews)
+4. Other (30 reviews)
+5. Food Quality (10 reviews)
+6. Airport Experience (8 reviews)
+
+The deployed AWS API successfully accepts customer reviews, predicts satisfaction levels, identifies complaint categories, generates recommendations, and stores results in DynamoDB.
+
 * Amazon Bedrock recommendation feature
 * Final presentation
 * Demo video
