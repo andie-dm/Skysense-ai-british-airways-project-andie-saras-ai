@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
+import requests
 
 nltk.download("vader_lexicon")
 
@@ -149,3 +150,39 @@ if st.button("Analyze Review"):
     st.write("Sentiment Score:", round(score, 3))
     st.write("Predicted Satisfaction:", prediction)
 
+#Prediction AWS
+
+st.header("Predict New Customer Review")
+
+review_input = st.text_area(
+    "Enter a customer review"
+)
+
+if st.button("Analyze with AWS API", key= "aws_analyze_review"):
+
+    api_url = "https://roechxk1h8.execute-api.us-west-2.amazonaws.com/predict"
+
+    payload = {
+        "review": review_input
+    }
+
+    response = requests.post(
+        api_url,
+        json=payload
+    )
+
+    result = response.json()
+
+    st.subheader("Prediction Result")
+
+    st.write(
+        f"**Satisfaction:** {result['satisfaction_prediction']}"
+    )
+
+    st.write(
+        f"**Complaint Topic:** {result['complaint_topic']}"
+    )
+
+    st.write(
+        f"**Recommendation:** {result['recommendation']}"
+    )
