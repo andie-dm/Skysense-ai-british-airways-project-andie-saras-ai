@@ -1,166 +1,216 @@
-# SkySense AI
-### AI-Driven Predictive Customer Satisfaction Analysis for British Airways Reviews
+# SkySense AI: British Airways Customer Satisfaction Prediction
 
-By Andrea Delgado
+### AI-Driven Predictive Customer Satisfaction and Personalized Experience Recommendations
 
----
-
-## Project Overview
-
-SkySense AI is a cloud-based customer satisfaction intelligence platform designed to analyze British Airways customer reviews using Natural Language Processing (NLP), Machine Learning, and AWS serverless services.
-
-The system automatically:
-
-- Analyzes customer sentiment
-- Predicts customer satisfaction
-- Identifies major complaint categories
-- Extracts recurring themes using topic modeling
-- Generates service improvement recommendations
-- Stores prediction results in AWS DynamoDB
-- Exposes predictions through AWS Lambda and API Gateway
-- Visualizes insights through an interactive Streamlit dashboard
+**Author:** Andrea Delgado
 
 ---
 
-## Business Problem
+# Project Overview
 
-British Airways receives thousands of customer reviews containing valuable feedback about flight experiences, customer service, delays, comfort, and operational issues.
+SkySense AI is an end-to-end machine learning application designed to analyze British Airways customer reviews, predict customer satisfaction, identify recurring complaint themes, and generate service improvement recommendations.
 
-Manually reviewing large amounts of customer feedback is time-consuming and inefficient.
-
-This project uses AI and cloud technologies to automate customer satisfaction analysis and provide actionable insights that help improve customer experience.
+The project combines Natural Language Processing (NLP), machine learning, AWS cloud services, and interactive dashboards to help airline customer experience teams make data-driven decisions.
 
 ---
 
-## Solution Architecture
+# Business Problem
 
-The solution combines NLP, machine learning, AWS serverless services, and dashboard visualization.
+British Airways receives thousands of customer reviews containing valuable information about passenger satisfaction and service quality.
 
-### Workflow
+Manually analyzing large volumes of customer feedback is time-consuming and makes it difficult to identify:
 
-1. British Airways reviews dataset loaded from CSV
-2. NLP preprocessing cleans customer reviews
-3. VADER performs sentiment analysis
-4. Satisfaction labels are generated
-5. Random Forest model predicts customer satisfaction
-6. LDA topic modeling identifies recurring complaint themes
-7. AWS Lambda provides prediction services
-8. API Gateway exposes prediction endpoints
-9. DynamoDB stores prediction results
-10. Streamlit dashboard visualizes insights and predictions
+- Satisfaction trends
+- Recurring customer complaints
+- Service improvement opportunities
+- Customer experience risks
+
+SkySense AI automates this process using AI and cloud technologies.
 
 ---
 
-## Technologies Used
+# Solution Overview
 
-### Machine Learning & NLP
+The application:
 
-- Python
-- Pandas
-- Scikit-Learn
-- NLTK
-- VADER Sentiment Analysis
-- Latent Dirichlet Allocation (LDA)
-
-### Cloud Services
-
-- AWS Lambda
-- Amazon API Gateway
-- Amazon DynamoDB
-- AWS IAM
-
-### Dashboard
-
-- Streamlit
-- Plotly
-- Matplotlib
-
-### Development
-
-- GitHub
-- GitHub Codespaces
+1. Cleans and preprocesses customer reviews
+2. Performs sentiment analysis using VADER
+3. Creates satisfaction labels based on sentiment scores
+4. Identifies complaint topics using LDA Topic Modeling
+5. Trains a predictive satisfaction model using Amazon SageMaker Canvas (Autopilot)
+6. Exposes predictions through AWS Lambda and API Gateway
+7. Stores prediction results in DynamoDB
+8. Displays predictions and recommendations through a Streamlit dashboard
 
 ---
 
-## Features
+# Dataset
 
-### Sentiment Analysis
+Dataset:
 
-Customer reviews are analyzed using VADER sentiment scoring.
+British Airways Customer Reviews Dataset
 
-Outputs:
+The dataset contains:
 
-- Satisfied
-- Neutral
-- Unsatisfied
+- Review titles
+- Customer review text
+- Ratings
+- Airline experience information
 
----
+After preprocessing, the dataset includes:
 
-### Customer Satisfaction Prediction
-
-A Random Forest classifier predicts customer satisfaction using sentiment features.
-
-Model Performance:
-
-- Accuracy: 100%
+- review_length
+- sentiment_score
+- satisfaction_label
 
 ---
 
-### Topic Modeling
+# NLP Pipeline
 
-LDA identifies major complaint categories found in negative reviews.
+## Text Preprocessing
 
-Example topics:
+The reviews were cleaned using:
 
-- Flight Delays
-- Customer Service
-- Seat Comfort
-- Food Quality
-- Airport Experience
-
----
-
-### AWS Serverless Prediction API
-
-Customers can submit a new review through:
-
-AWS API Gateway → AWS Lambda → DynamoDB
-
-The API returns:
-
-- Satisfaction prediction
-- Complaint category
-- Improvement recommendation
+- Lowercasing
+- Punctuation removal
+- Stopword removal
+- Tokenization
 
 ---
 
-### Interactive Dashboard
+## Sentiment Analysis
 
-The Streamlit dashboard includes:
+Sentiment analysis was performed using VADER.
 
-- Dataset overview
-- KPI cards
-- Satisfaction distribution
-- Complaint category analysis
-- Real-time prediction interface
-- AWS API integration
+Example:
 
----
+Review:
 
-## AWS Architecture
+> "My flight was delayed for five hours and customer service was rude."
 
-### Services Implemented
+Result:
 
-| Service | Purpose |
-|----------|----------|
-| Lambda | Prediction engine |
-| API Gateway | REST API endpoint |
-| DynamoDB | Store prediction results |
-| IAM | Permissions management |
+- Sentiment Score: -0.91
+- Satisfaction Label: Unsatisfied
 
 ---
 
-## Sample API Response
+# Topic Modeling (LDA)
+
+Latent Dirichlet Allocation (LDA) was used to identify recurring complaint themes from customer reviews.
+
+Example topics discovered:
+
+### Topic 1 – Service Experience
+
+- service
+- crew
+- british
+- flight
+- airways
+
+### Topic 2 – Flight Delays
+
+- delayed
+- hours
+- airport
+- customer
+- flight
+
+### Topic 3 – Boarding and Staff
+
+- boarding
+- passengers
+- staff
+- service
+
+### Topic 4 – Luggage Issues
+
+- luggage
+- delayed
+- connecting
+- flight
+
+These topics help identify the most common customer pain points.
+
+---
+
+# Machine Learning Model
+
+## Amazon SageMaker Canvas (Autopilot)
+
+Amazon SageMaker Canvas was used to automatically train and evaluate a customer satisfaction prediction model.
+
+### Target Variable
+
+```
+satisfaction_label
+```
+
+### Input Features
+
+- sentiment_score
+- review_length
+- title
+- reviews
+
+### Model Performance
+
+Accuracy:
+
+```
+99.61%
+```
+
+Most influential feature:
+
+```
+sentiment_score
+```
+
+This confirms that customer sentiment strongly predicts satisfaction outcomes.
+
+---
+
+# AWS Architecture
+
+## Amazon S3
+
+Stores datasets and model assets.
+
+## Amazon SageMaker Canvas
+
+Trains and evaluates the satisfaction prediction model.
+
+## AWS Lambda
+
+Runs serverless prediction logic.
+
+## Amazon API Gateway
+
+Provides a public API endpoint for real-time predictions.
+
+## Amazon DynamoDB
+
+Stores prediction history and recommendation results.
+
+## AWS IAM
+
+Manages secure service permissions.
+
+---
+
+# Prediction API
+
+Example Request
+
+```json
+{
+  "review": "My flight was delayed for five hours and customer service was rude."
+}
+```
+
+Example Response
 
 ```json
 {
@@ -172,43 +222,69 @@ The Streamlit dashboard includes:
 
 ---
 
-## Project Structure
+# Streamlit Dashboard
 
-```
-app/
- └── streamlit_app.py
+The Streamlit dashboard allows users to:
 
-data/
- ├── british_airways_reviews.csv
- └── british_airways_processed.csv
-
-notebooks/
- └── 01_exploration.ipynb
-
-src/
- ├── preprocess.py
- ├── sentiment.py
- ├── recommendations.py
- └── customer_satisfaction_model.pkl
-
-architecture/
- └── architecture_diagram.md
-```
+- Enter customer reviews
+- Generate predictions
+- View complaint topics
+- View recommendations
+- Explore customer sentiment insights
 
 ---
 
-## Future Improvements
+# Amazon Bedrock Enhancement
+
+Amazon Bedrock was evaluated as a future enhancement for generating dynamic recommendations using foundation models.
+
+A Bedrock prompt was successfully designed and tested; however, account token quotas limited full deployment during development.
+
+Future versions of the project can replace rule-based recommendations with AI-generated recommendations from Amazon Bedrock.
+
+---
+
+# Technologies Used
+
+- Python
+- Pandas
+- Scikit-Learn
+- NLTK
+- VADER
+- LDA Topic Modeling
+- Streamlit
+- AWS Lambda
+- Amazon API Gateway
+- Amazon DynamoDB
+- Amazon SageMaker Canvas
+- Amazon S3
+- AWS IAM
+- GitHub
+
+---
+
+# Project Deliverables
+
+- NLP Pipeline
+- Sentiment Analysis
+- Topic Modeling (LDA)
+- SageMaker Autopilot Model
+- AWS Lambda API
+- API Gateway Integration
+- DynamoDB Storage
+- Streamlit Dashboard
+- Cloud Architecture
+- GitHub Repository
+
+---
+
+# Future Improvements
 
 - Amazon Bedrock integration
-- SageMaker Autopilot model training
-- Real-time airline monitoring
-- Advanced recommendation generation
-- Interactive executive dashboard
+- Real-time airline feedback monitoring
+- Multi-language sentiment analysis
+- BERTopic implementation
+- Advanced recommendation engine
+- Production deployment on AWS
 
 ---
-
-## Author
-
-Andrea Delgado
-
-Community Leader | Data Analytics & AI Practitioner | Silicon Slopes Latino Co-Chair

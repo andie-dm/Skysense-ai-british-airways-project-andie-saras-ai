@@ -186,3 +186,30 @@ if st.button("Analyze with AWS API", key= "aws_analyze_review"):
     st.write(
         f"**Recommendation:** {result['recommendation']}"
     )
+
+    import boto3
+import json
+
+bedrock = boto3.client(
+    "bedrock-runtime",
+    region_name="us-west-2"
+)
+
+prompt = """
+Generate three recommendations for improving airline customer satisfaction
+for complaints related to flight delays.
+"""
+
+response = bedrock.invoke_model(
+    modelId="amazon.nova-micro-v1:0",
+    body=json.dumps({
+        "messages": [
+            {
+                "role": "user",
+                "content": [{"text": prompt}]
+            }
+        ]
+    })
+)
+
+print(response)

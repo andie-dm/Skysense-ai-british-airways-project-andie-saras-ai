@@ -1,45 +1,39 @@
 flowchart TD
 
-A[British Airways Reviews CSV]
+A[British Airways Reviews Dataset]
 --> B[Amazon S3]
 
 B --> C[Python NLP Pipeline]
 
-C --> D[VADER Sentiment Analysis]
+C --> D[Text Cleaning]
+C --> E[VADER Sentiment Analysis]
+C --> F[Feature Engineering]
 
-D --> E[Processed Dataset]
+E --> G[Sentiment Score]
+F --> H[Review Length]
 
-E --> F[Random Forest Model Training]
+G --> I[Satisfaction Label]
 
-F --> G[customer_satisfaction_model.pkl]
+I --> J[Amazon SageMaker Canvas Autopilot]
 
-G --> H[Streamlit Dashboard]
+H --> J
+G --> J
 
-H --> I[API Gateway]
+J --> K[Customer Satisfaction Prediction Model]
 
-I --> J[AWS Lambda]
+K --> L[AWS Lambda]
 
-J --> K[DynamoDB]
+L --> M[Amazon API Gateway]
 
-J --> L[Customer Satisfaction Prediction]
+M --> N[Streamlit Dashboard]
 
-J --> M[Complaint Topic Detection]
+L --> O[Amazon DynamoDB]
 
-J --> N[Recommendation Engine]
+N --> P[Customer Satisfaction Prediction]
+N --> Q[Complaint Topic Detection]
+N --> R[Service Recommendations]
 
+S[LDA Topic Modeling]
+--> Q
 
-*End-to-End Cloud Architecture:*
-
-User
-  ↓
-Streamlit Dashboard
-  ↓
-API Gateway
-  ↓
-AWS Lambda
-  ↓
-Sentiment Analysis
-Complaint Classification
-Recommendation Engine
-  ↓
-DynamoDB
+R --> T[Future: Amazon Bedrock Recommendations]
