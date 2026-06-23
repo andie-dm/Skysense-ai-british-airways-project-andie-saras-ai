@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import nltk
+import boto3
 from nltk.sentiment import SentimentIntensityAnalyzer
 import requests
 
@@ -15,7 +16,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("SkySense AI")
+st.title("SkySense AI ✈️") 
 st.subheader("AI-Driven Customer Satisfaction Analysis for British Airways Reviews")
 
 st.write("""
@@ -187,29 +188,29 @@ if st.button("Analyze with AWS API", key= "aws_analyze_review"):
         f"**Recommendation:** {result['recommendation']}"
     )
 
-    import boto3
-import json
+   # import boto3
+#import json
 
-bedrock = boto3.client(
-    "bedrock-runtime",
-    region_name="us-west-2"
-)
+#bedrock = boto3.client(
+   # "bedrock-runtime",
+   # region_name="us-west-2"
+#)
 
 prompt = """
 Generate three recommendations for improving airline customer satisfaction
 for complaints related to flight delays.
 """
 
-response = bedrock.invoke_model(
-    modelId="amazon.nova-micro-v1:0",
-    body=json.dumps({
-        "messages": [
-            {
-                "role": "user",
-                "content": [{"text": prompt}]
-            }
-        ]
-    })
-)
+#response = bedrock.invoke_model(
+   # modelId="amazon.nova-micro-v1:0",
+   # body=json.dumps({
+   #     "messages": [
+    #        {
+    #            "role": "user",
+    #            "content": [{"text": prompt}]
+   #         }
+   #     ]
+   # })
+#)
 
-print(response)
+#print(response)
